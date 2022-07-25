@@ -36,6 +36,6 @@ class MotorDriver{
         // Brake the motor; Bring the motor to a halt
         void brake(){
             digitalWrite(_MOTOR_IN_1, 0);
-            digitalWrite(_MOTOR_IN_2, 1);
+            digitalWrite(_MOTOR_IN_2, 0);
         }
 };

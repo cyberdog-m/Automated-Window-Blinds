@@ -15,7 +15,7 @@ class HallEffect{
         };
 
         // Check for the position of the curtain
-        char* checkPosition(){
+        String checkPosition(){
             // Check if sensor is active
             if (isActive(_SENSOR_1)){
                 return "top";
@@ -34,9 +34,10 @@ class HallEffect{
         // Check whether the sensor is active
         bool isActive(int sensor){
             int sensorValue = analogRead(sensor);
-            int threshold = 600;
+            // Serial.println(sensorValue);
+            int threshold = 10;
 
-            if (sensorValue>=threshold){
+            if (sensorValue <= threshold){
                 return true;
             }
             return false;
