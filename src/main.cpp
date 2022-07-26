@@ -31,7 +31,7 @@ AsyncWebServer server(80);
 void moveUp(){
   // Rotate the motor if the curtain is not at TOP 
   while (hallEffect.checkPosition() != "top"){
-    motor.rotateCW(100);
+    motor.rotateCW(255);
     Serial.println("Moving Blind UP");
     delay(100);
   }
@@ -41,7 +41,7 @@ void moveUp(){
 void moveDown(){
   // Rotate the motor if the curtain is not at BOTTOM 
   while (hallEffect.checkPosition() != "bottom"){
-    motor.rotateCCW(100);
+    motor.rotateCCW(255);
     Serial.println("Moving Blind Down");
     delay(100);
   }
