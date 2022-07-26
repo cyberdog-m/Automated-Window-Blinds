@@ -21,6 +21,10 @@ int sensor_2 = 34;
 int switch_1 = 16;
 int switch_2 = 17;
 
+// Blinds global flag value for execution
+bool moveBlindsUp_flag = false;
+bool moveBlindsDown_flag = false;
+
 // Initializing Motor and Hall Effect Sensor
 MotorDriver motor(motor_in_1, motor_in_2, motor_pwm);
 HallEffect hallEffect(sensor_1, sensor_2);
@@ -32,7 +36,7 @@ void moveUp(){
   // Rotate the motor if the curtain is not at TOP 
   while (hallEffect.checkPosition() != "top"){
     motor.rotateCW(255);
-    Serial.println("Moving Blind UP");
+    Serial.println("Moving Blind Up");
     delay(100);
   }
   motor.brake();
@@ -75,12 +79,12 @@ void setup() {
 
   server.on("/blind/up", HTTP_GET, [](AsyncWebServerRequest * request){ 
     request->send_P(200, "text/html", webpage);
-    moveUp();
+    moveBlindsUp_flag = true;
   });
 
   server.on("/blind/down", HTTP_GET, [](AsyncWebServerRequest * request){ 
     request->send_P(200, "text/html", webpage);
-    moveDown();
+    moveBlindsDown_flag = true;
   });
 
   server.onNotFound(notFound);
@@ -99,5 +103,18 @@ void loop() {
    if (digitalRead(switch_2)==HIGH){
     moveDown();
     delay(200);
+  }
+
+  // Using flags to trigger events because otherwise causes watchdog errors
+  // Move blinds up if the flag is triggered
+  if (moveBlindsUp_flag){
+    moveBlindsUp_flag = false;
+    moveUp();
+  }
+
+  // Move blinds down if the flag is triggered
+  if (moveBlindsDown_flag){
+    moveBlindsDown_flag = false;
+    moveDown();
   }
 }
