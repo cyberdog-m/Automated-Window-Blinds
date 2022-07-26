@@ -6,6 +6,7 @@
 #include <HallEffect.h>
 #include <MotorDriver.h>
 #include <Webpage.h>
+#include <RockerSwitch.h>
 
 // I/O Pin Defnitions
 // Motor Pins
@@ -17,9 +18,14 @@ int motor_pwm = 25;
 int sensor_1 = 36;
 int sensor_2 = 34;
 
+// Rocker Switch Pin
+int switch_1 = 16;
+int switch_2 = 17;
+
 // Initializing Motor and Hall Effect Sensor
 MotorDriver motor(motor_in_1, motor_in_2, motor_pwm);
 HallEffect hallEffect(sensor_1, sensor_2);
+RockerSwitch rockerSwitch(switch_1, switch_2);
 
 // Webserver hosted at Port 80
 AsyncWebServer server(80);
@@ -81,5 +87,14 @@ void setup() {
 }
 
 void loop() {
+  // if (rockerSwitch.switchPos() == "up"){
+  //   moveUp();
+  //   delay(100);
+  // }
+  
+  // if (rockerSwitch.switchPos() == "down"){
+  //   moveDown();
+  //   delay(100);
+  // }
 
 }
