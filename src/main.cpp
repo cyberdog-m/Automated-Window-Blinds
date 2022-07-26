@@ -6,7 +6,6 @@
 #include <HallEffect.h>
 #include <MotorDriver.h>
 #include <Webpage.h>
-#include <RockerSwitch.h>
 
 // I/O Pin Defnitions
 // Motor Pins
@@ -25,7 +24,6 @@ int switch_2 = 17;
 // Initializing Motor and Hall Effect Sensor
 MotorDriver motor(motor_in_1, motor_in_2, motor_pwm);
 HallEffect hallEffect(sensor_1, sensor_2);
-RockerSwitch rockerSwitch(switch_1, switch_2);
 
 // Webserver hosted at Port 80
 AsyncWebServer server(80);
@@ -57,6 +55,8 @@ void notFound(AsyncWebServerRequest *request){
 void setup() {
   // Initializing Serial Monitor
   Serial.begin(115200);
+  pinMode(switch_1, INPUT_PULLDOWN);
+  pinMode(switch_2, INPUT_PULLDOWN);
 
   // Wifi Access Point Credetials
   WiFi.softAP("Automated Blinds", "");
@@ -89,14 +89,15 @@ void setup() {
 }
 
 void loop() {
-  // if (rockerSwitch.switchPos() == "up"){
-  //   moveUp();
-  //   delay(100);
-  // }
-  
-  // if (rockerSwitch.switchPos() == "down"){
-  //   moveDown();
-  //   delay(100);
-  // }
+  // Move Up if Switch 1 is HIGH
+  if (digitalRead(switch_1)==HIGH){
+    moveUp();
+    delay(200);
+  }
 
+  // Move Down if Switch 2 is HIGH
+   if (digitalRead(switch_2)==HIGH){
+    moveDown();
+    delay(200);
+  }
 }
