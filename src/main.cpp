@@ -31,6 +31,7 @@ void moveUp(){
     Serial.println("Moving Blind UP");
     delay(100);
   }
+  motor.brake();
 }
 
 void moveDown(){
@@ -40,6 +41,7 @@ void moveDown(){
     Serial.println("Moving Blind Down");
     delay(100);
   }
+  motor.brake();
 }
 
 void notFound(AsyncWebServerRequest *request){
