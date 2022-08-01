@@ -45,7 +45,7 @@ void moveUp(){
 void moveDown(){
   // Rotate the motor if the curtain is not at BOTTOM 
   while (hallEffect.checkPosition() != "bottom"){
-    motor.rotateCCW(255);
+    motor.rotateCCW(200);
     Serial.println("Moving Blind Down");
     delay(100);
   }
